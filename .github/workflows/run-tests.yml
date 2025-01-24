@@ -1,0 +1,39 @@
+name: Run Tests
+
+# Déclencheurs du workflow
+on:
+  push:
+    branches:
+      - main  # Déclenche le workflow lors d'un push sur la branche main
+  pull_request:
+    branches:
+      - main  # Déclenche le workflow lors d'une pull request vers la branche main
+
+# Jobs du workflow
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # Utilise une machine virtuelle Ubuntu
+
+    steps:
+      # Étape 1 : Checkout du code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Étape 2 : Configurer CMake
+      - name: Configure CMake
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+
+      # Étape 3 : Compiler le projet
+      - name: Build project
+        run: |
+          cd build
+          make
+
+      # Étape 4 : Lancer les tests
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure
