@@ -1,0 +1,86 @@
+# Fichiers de compilation et d'exécution
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.out
+*.bin
+
+# Fichiers de débogage
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.ilk
+
+# Fichiers de projet (IDE)
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.cbp
+*.layout
+*.workspace
+*.project
+*.cproject
+
+# Fichiers de compilation CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Fichiers de dépendances
+deps/
+build/
+bin/
+lib/
+obj/
+
+# Fichiers temporaires
+*.tmp
+*.swp
+*.swo
+*~
+*.bak
+*.log
+
+# Fichiers de documentation générés
+docs/html/
+docs/latex/
+
+# Fichiers de configuration spécifiques à l'IDE
+.vscode/
+.idea/
+.clion/
+
+# Fichiers de cache et de logs
+.cache/
+*.log
+
+# Fichiers de données de test
+test/data/
+test/output/
+
+# Fichiers spécifiques à macOS
+.DS_Store
+
+# Fichiers spécifiques à Windows
+Thumbs.db
+Desktop.ini
+
+# Fichiers spécifiques à Linux
+*~
+.*.swp
+.*.swo
+
+# Fichiers de dépendances externes (si vous utilisez des sous-modules Git)
+# Exemple : Ignorer les sous-modules Git
+# !submodule/
+
+# Fichiers de configuration personnelle
+.env
+.env.local
