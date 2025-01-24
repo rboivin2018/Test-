@@ -1,0 +1,60 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for the project.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature! Please provide as much detail as possible to help us understand and prioritize your request.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the feature you'd like to see.
+      placeholder: "What problem does this feature solve? Why is it useful?"
+    validations:
+      required: true
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success Criteria
+      description: How to mesure the success of the feature
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Explain how this feature would be used and who would benefit from it.
+      placeholder: "Describe a scenario where this feature would be helpful."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: If you have a solution in mind, describe it here.
+      placeholder: "How should this feature work? Are there any examples from other projects?"
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: Are there any existing workarounds or alternatives to this feature?
+      placeholder: "Describe any workarounds or alternative solutions you've considered."
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - "Low (nice to have)"
+        - "Medium (important but not urgent)"
+        - "High (urgent and critical)"
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or references that might help us understand your request.
+      placeholder: "Add any additional information here."
