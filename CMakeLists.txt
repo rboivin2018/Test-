@@ -8,8 +8,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include_directories(${nlohmann_json_SOURCE_DIR})
 
-#set(SOURCES
-#)
+set(SOURCES
+    src/application/services/GithubService.cpp
+    src/domain/use_cases/ListRepository.cpp
+    src/application/clients/GitHubAPIClient.cpp
+    src/infrastructure/gateways/RepositoryGateway.cpp
+	src/infrastructure/clients/CurlHttpClient.cpp
+)
 
 file(DOWNLOAD
         https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp
