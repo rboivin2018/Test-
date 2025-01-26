@@ -9,11 +9,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Ajouter les fichiers de test
 set(TEST_SOURCES
     unit/presentation/GitHubCLITests.cpp
+	unit/application/services/GitHubServiceTests.cpp
 )
 
 # Ajouter les fichiers sources nécessaires pour les tests
 set(SOURCES
     ../src/presentation/GitHubCLI.cpp
+	../src/application/services/GithubService.cpp
+	../src/infrastructure/gateways/RepositoryGateway.cpp
 )
 
 # Ajouter les répertoires d'inclusion
@@ -43,6 +46,11 @@ target_link_libraries(GitHubAPILib_Tests PRIVATE
 	gtest_main
 	gmock
    github  # Lier la bibliothèque principale
+)
+
+include(GoogleTest)
+gtest_discover_tests(GitHubAPILib_Tests
+  EXTRA_ARGS --gtest_output=xml:${CMAKE_CURRENT_BINARY_DIR}/test_results/
 )
 
 # Activer CTest pour gérer les tests
