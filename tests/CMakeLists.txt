@@ -4,13 +4,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# set(TEST_SOURCES
+set(TEST_SOURCES
+	unit/application/services/GitHubServiceTests.cpp
+)
 
-#)
-
-#set(SOURCES
-
-#)
+set(SOURCES
+	../src/application/services/GithubService.cpp
+	../src/infrastructure/gateways/RepositoryGateway.cpp
+)
 
 include_directories(
    ../include
@@ -35,6 +36,12 @@ target_link_libraries(GitHubAPILib_Tests PRIVATE
    gtest
 	gtest_main
 	gmock
+	CURL::libcurl
+)
+
+include(GoogleTest)
+gtest_discover_tests(GitHubAPILib_Tests
+  EXTRA_ARGS --gtest_output=xml:${CMAKE_CURRENT_BINARY_DIR}/test_results/
 )
 
 enable_testing()
