@@ -39,5 +39,3 @@ struct Repository {
 };
 
 #endif // REPOSITORY_HPP
-
-#endif // REPOSITORY_HPP
