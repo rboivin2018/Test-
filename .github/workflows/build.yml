@@ -36,7 +36,7 @@ jobs:
 
     - name: Build project
       run: |
-        cmake --build build --config Release --target install -- -j4
+        cmake --build build --config Release -- -j4
 
     - name: Verify binary architecture
       run: |
