@@ -6,11 +6,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(TEST_SOURCES
 	unit/application/services/GitHubServiceTests.cpp
+	unit/application/clients/GitHubAPIClientTests.cpp
 )
 
 set(SOURCES
 	../src/application/services/GithubService.cpp
 	../src/infrastructure/gateways/RepositoryGateway.cpp
+	../src/application/clients/GitHubAPIClient.cpp
+	../src/infrastructure/clients/CurlHttpClient.cpp
 )
 
 include_directories(
@@ -30,13 +33,19 @@ include_directories(${gtest_SOURCE_DIR}/include
 	${gmock_SOURCE_DIR}/include
    ${CMAKE_SOURCE_DIR}/external)
 
+find_package(CURL REQUIRED)
+
 add_executable(GitHubAPILib_Tests ${TEST_SOURCES} ${SOURCES})
+
+target_include_directories(GitHubAPILib_Tests PRIVATE
+    ${CURL_INCLUDE_DIRS}
+)
 
 target_link_libraries(GitHubAPILib_Tests PRIVATE
    gtest
 	gtest_main
 	gmock
-	CURL::libcurl
+	${CURL_LIBRARIES}
 )
 
 include(GoogleTest)
