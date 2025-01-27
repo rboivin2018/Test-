@@ -1,0 +1,62 @@
+name: i686 Linux Build
+
+on:
+  workflow_run:
+    workflows: ["Run Tests"]
+    branches: [master]
+    types: [completed]
+
+jobs:
+  build:
+    name: i686 Build
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      (github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout exact commit
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.workflow_run.head_sha }}  # Critical fix
+
+    - name: Install 32-bit dependencies
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get install -y \
+            g++-multilib \
+            libcurl4-openssl-dev:i386 \
+            nlohmann-json3-dev \
+            cmake \
+            file
+
+    - name: Configure CMake
+      run: |
+        cmake -B build -DCMAKE_CXX_FLAGS="-m32" -DCMAKE_C_FLAGS="-m32"
+
+    - name: Build project
+      run: |
+        cmake --build build --config Release -- -j4
+
+    - name: Verify binary architecture
+      run: |
+        file build/libgithub* | grep 'ELF 32-bit'
+        ar t build/libgithub.a | head -n 3
+
+    - name: Package artifacts
+      run: |
+        mkdir -p dist/i686
+        install -Dm644 build/libgithub* dist/i686/
+        cp -r include dist/i686/
+        echo "Commit: $GITHUB_SHA" > dist/i686/VERSION.txt
+        echo "Builddate: $(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> dist/i686/VERSION.txt
+        tar -czvf github-lib-i686.tar.gz -C dist/i686 .
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: github-lib-i686-${{ github.run_id }}
+        path: |
+          github-lib-i686.tar.gz
+          dist/i686/VERSION.txt
+        retention-days: 7  # Cleanup policy
